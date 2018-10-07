@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SUNRISE</title>
+  </head>
+  <body onload='sunrise()'>
+  <!--
+    The purpose of this html page is to try out different functions for the color change of 
+    red, green and blue until I find a combination that is similar enough to a sunrise
+    for my liking.
+  -->
+        <script>
+                function bytelimit (value) {
+                        if (value < 0 ) { return 0;}
+                        if (value > 255 ) { return 255;}
+                        return value;
+                }
+
+
+                function rgb(red, green, blue) {
+                    var decColor =0x1000000+ blue + 0x100 * green + 0x10000 *red ;
+                    return '#'+decColor.toString(16).substr(1);
+                }
+
+                function r(x) {
+                        var m = 1;
+                        var b = -50;
+                        return bytelimit(m * x +b);
+                }
+
+
+                function g(x) {
+                        var m = 1;
+                        var b = -100;
+                        return bytelimit(m * x +b);
+                }
+
+                function b(x) {
+                        var m = 0.5;
+                        var b = 0;
+                        return bytelimit(m * x +b);
+                }
+
+
+
+                function sleep(ms) {
+                          return new Promise(resolve => setTimeout(resolve, ms));
+                }
+
+                async function sunrise(){
+                        document.body.style.background = "#000000";
+                        var x;
+                        for (x=0; x<600; x++) {
+                                await sleep(50);
+                                document.body.style.background = rgb(r(x), g(x), b(x));
+                        }
+                }
+        </script>
+  </body>
+</html>
